@@ -1,18 +1,19 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { RouterLink, RouterView } from 'vue-router';
+import Person from './components/Person.vue';
+import { person } from './resources/content';
 </script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+    <img alt="logo" class="logo" src="@/assets/logo.png" width="125" height="125" />
 
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+      <Person :name="person.name" :title="person.title" />
 
       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/">Stack</RouterLink>
+        <RouterLink to="/contact">Contact</RouterLink>
       </nav>
     </div>
   </header>
@@ -55,6 +56,15 @@ nav a {
 nav a:first-of-type {
   border: 0;
 }
+
+/* Mobile style
+@media (max-width: 414px) {
+.logo {
+  float: left;
+  width: 55px;
+  height: 55px;
+}
+/* } */
 
 @media (min-width: 1024px) {
   header {
