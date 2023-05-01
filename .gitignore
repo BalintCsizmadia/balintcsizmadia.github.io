@@ -27,4 +27,7 @@ coverage
 *.sln
 *.sw?
 
+# Custom
 tst
+old_*
+concept_*
