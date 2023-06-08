@@ -7,48 +7,101 @@ export const stackItems = [
   {
     id: 1,
     heading: 'Languages',
-    details: [{ id: 1, items: ['JavaScript', 'TypeScript', 'Java'] }],
+    details: [
+      {
+        id: 1,
+        items: [
+          { name: 'JavaScript', icon: 'js' },
+          { name: 'TypeScript', icon: 'js' },
+          { name: 'Java', icon: 'java' }
+        ]
+      }
+    ],
     icon: 'code',
-    iconType: 'fa'
+    iconType: 'fa',
+    displayAlterIcon: false
   },
   {
     id: 2,
     heading: 'Backend',
-    details: [{ id: 2, items: ['Node.js', 'Spring Boot'] }],
+    details: [
+      {
+        id: 2,
+        items: [
+          { name: 'Node.js', icon: 'node-js' },
+          { name: 'Spring Boot', icon: 'java' }
+        ]
+      }
+    ],
     icon: 'server',
-    iconType: 'fa'
+    iconType: 'fa',
+    displayAlterIcon: false
   },
   {
     id: 3,
     heading: 'Frontend',
     details: [
-      { id: 3, group: 'Basics', items: ['HTML', 'CSS'] },
+      {
+        id: 3,
+        group: 'Basics',
+        items: [
+          { name: 'HTML', icon: 'html5' },
+          { name: 'CSS', icon: 'css3-alt' }
+        ]
+      },
       {
         id: 4,
         group: 'Frameworks',
-        // i know that React is not a framework but a library 🤓
-        items: ['Vue', 'React', 'Angular']
+        items: [
+          { name: 'Vue', icon: 'vuejs' },
+          // i know that React is not a framework but a library 🤓
+          { name: 'React', icon: 'react' },
+          { name: 'Angular', icon: 'angular' }
+        ]
       }
     ],
     icon: 'display',
-    iconType: 'fa'
+    iconType: 'fa',
+    displayAlterIcon: false
   },
   {
     id: 4,
     heading: 'Database',
-    details: [{ id: 5, items: ['PostgreSQL', 'MySQL'] }],
+    details: [
+      {
+        id: 5,
+        items: [
+          { name: 'PostgreSQL', icon: 'database', iconType: 'fa' },
+          { name: 'MySQL', icon: 'database', iconType: 'fa' }
+        ]
+      }
+    ],
     icon: 'database',
-    iconType: 'fa'
+    iconType: 'fa',
+    displayAlterIcon: false
   },
   {
     id: 5,
     heading: 'DevOps',
     details: [
-      { id: 6, group: 'Infrastructure', items: ['Google Cloud Platform'] },
-      { id: 7, group: 'Tools', items: ['Docker', 'Git', 'Terraform'] }
+      {
+        id: 6,
+        group: 'Infrastructure',
+        items: [{ name: 'Google Cloud Platform', icon: 'google' }]
+      },
+      {
+        id: 7,
+        group: 'Tools',
+        items: [
+          { name: 'Docker', icon: 'docker' },
+          { name: 'Git', icon: 'git' },
+          { name: 'Terraform', icon: 'road-bridge', iconType: 'fa' }
+        ]
+      }
     ],
     icon: 'gears',
-    iconType: 'fa'
+    iconType: 'fa',
+    displayAlterIcon: false
   }
 ];
 
