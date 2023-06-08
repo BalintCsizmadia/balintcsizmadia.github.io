@@ -1,6 +1,6 @@
 {
   "name": "balintcsizmadia-github-io",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -24,6 +24,6 @@
     "eslint": "^8.34.0",
     "eslint-plugin-vue": "^9.9.0",
     "prettier": "^2.8.4",
-    "vite": "^4.1.4"
+    "vite": ">=4.2.3"
   }
 }
