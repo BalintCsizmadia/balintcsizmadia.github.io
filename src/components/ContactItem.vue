@@ -5,7 +5,7 @@
       </i>
       <div class="contact-name-wrapper">
         <h3>
-          <slot name="name"></slot>
+          <slot name="contact"></slot>
         </h3>
       </div>
     </div>

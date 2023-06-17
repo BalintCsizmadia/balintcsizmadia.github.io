@@ -2,14 +2,28 @@
 import TechStackItem from './TechStackItem.vue';
 import { stackItems } from '../resources/content';
 import { reactive, ref } from 'vue';
+import { PostgresqlIcon, MysqlIcon, TypescriptIcon, TerraformIcon } from 'vue3-simple-icons';
+import { IconTypes, IconSources, IconSizes } from '../resources/constants.js';
 
 let myStackItems = reactive(stackItems);
 let alterIcon = ref('');
 let alterIconType = ref('');
+let alterIconSource = ref('');
 
-const IconTypes = {
-  FA: 'fa',
-  FAB: 'fab'
+const dynamicComponent = ref(null);
+const dynamicProps = reactive({
+  size: IconSizes.SIMPLEICONS,
+  class: 'simple-icon'
+});
+
+const loadDynamicComponent = (componentName) => {
+  const componentMapping = {
+    mysql: MysqlIcon,
+    postgres: PostgresqlIcon,
+    terraform: TerraformIcon,
+    typescript: TypescriptIcon
+  };
+  dynamicComponent.value = componentMapping[componentName];
 };
 
 const displayItem = (item, lastItem) => (item === lastItem ? item.name : `${item.name}, `);
@@ -18,25 +32,36 @@ const changeIcon = (stackItemObj, item) => {
   stackItemObj.displayAlterIcon = true;
   alterIcon.value = item.icon;
   alterIconType.value = item.iconType || IconTypes.FAB;
+  alterIconSource.value = item.iconSource;
+  if (item.iconSource === IconSources.SIMPLEICONS) {
+    loadDynamicComponent(item.icon);
+  }
 };
 
 const changeIconBack = (stackItemObj) => {
   stackItemObj.displayAlterIcon = false;
   alterIcon.value = '';
   alterIconType.value = '';
+  alterIconSource.value = '';
 };
 </script>
 
 <template>
   <TechStackItem v-for="stackItem in myStackItems" :id="stackItem.id">
     <template #icon>
+      <component
+        v-if="alterIconSource === IconSources.SIMPLEICONS && stackItem.displayAlterIcon"
+        :is="{ ...dynamicComponent }"
+        v-bind="dynamicProps"
+      />
       <font-awesome-icon
+        v-else
         class="fai"
         :icon="[
           stackItem.displayAlterIcon ? alterIconType : stackItem.iconType || IconTypes.FA,
           stackItem.displayAlterIcon ? alterIcon : stackItem.icon
         ]"
-        size="2x"
+        :size="IconSizes.FONTAWESOME"
       />
     </template>
     <template #heading>{{ stackItem.heading }}</template>

@@ -11,9 +11,9 @@ export const stackItems = [
       {
         id: 1,
         items: [
-          { name: 'JavaScript', icon: 'js' },
-          { name: 'TypeScript', icon: 'js' },
-          { name: 'Java', icon: 'java' }
+          { name: 'JavaScript', icon: 'js', iconSource: 'fontawesome' },
+          { name: 'TypeScript', icon: 'typescript', iconSource: 'simpleicons' },
+          { name: 'Java', icon: 'java', iconSource: 'fontawesome' }
         ]
       }
     ],
@@ -28,8 +28,8 @@ export const stackItems = [
       {
         id: 2,
         items: [
-          { name: 'Node.js', icon: 'node-js' },
-          { name: 'Spring Boot', icon: 'java' }
+          { name: 'Node.js', icon: 'node-js', iconSource: 'fontawesome' },
+          { name: 'Spring Boot', icon: 'java', iconSource: 'fontawesome' }
         ]
       }
     ],
@@ -45,18 +45,18 @@ export const stackItems = [
         id: 3,
         group: 'Basics',
         items: [
-          { name: 'HTML', icon: 'html5' },
-          { name: 'CSS', icon: 'css3-alt' }
+          { name: 'HTML', icon: 'html5', iconSource: 'fontawesome' },
+          { name: 'CSS', icon: 'css3-alt', iconSource: 'fontawesome' }
         ]
       },
       {
         id: 4,
         group: 'Frameworks',
         items: [
-          { name: 'Vue', icon: 'vuejs' },
+          { name: 'Vue', icon: 'vuejs', iconSource: 'fontawesome' },
           // i know that React is not a framework but a library 🤓
-          { name: 'React', icon: 'react' },
-          { name: 'Angular', icon: 'angular' }
+          { name: 'React', icon: 'react', iconSource: 'fontawesome' },
+          { name: 'Angular', icon: 'angular', iconSource: 'fontawesome' }
         ]
       }
     ],
@@ -71,8 +71,8 @@ export const stackItems = [
       {
         id: 5,
         items: [
-          { name: 'PostgreSQL', icon: 'database', iconType: 'fa' },
-          { name: 'MySQL', icon: 'database', iconType: 'fa' }
+          { name: 'PostgreSQL', icon: 'postgres', iconSource: 'simpleicons' },
+          { name: 'MySQL', icon: 'mysql', iconSource: 'simpleicons' }
         ]
       }
     ],
@@ -87,15 +87,15 @@ export const stackItems = [
       {
         id: 6,
         group: 'Infrastructure',
-        items: [{ name: 'Google Cloud Platform', icon: 'google' }]
+        items: [{ name: 'Google Cloud Platform', icon: 'google', iconSource: 'fontawesome' }]
       },
       {
         id: 7,
         group: 'Tools',
         items: [
-          { name: 'Docker', icon: 'docker' },
-          { name: 'Git', icon: 'git' },
-          { name: 'Terraform', icon: 'road-bridge', iconType: 'fa' }
+          { name: 'Docker', icon: 'docker', iconSource: 'fontawesome' },
+          { name: 'Git', icon: 'git', iconSource: 'fontawesome' },
+          { name: 'Terraform', icon: 'terraform', iconSource: 'simpleicons' }
         ]
       }
     ],

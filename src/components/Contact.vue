@@ -1,11 +1,7 @@
 <script setup>
 import ContactItem from './ContactItem.vue';
 import { contactMethods } from '../resources/content';
-
-const AnchorHTMLAttributes = {
-  HREF: 'href',
-  TARGET: 'target'
-};
+import { AnchorHTMLAttributes, IconSizes } from '../resources/constants';
 
 const setAnchor = (contact, property) => {
   switch (property) {
@@ -22,9 +18,13 @@ const isEmailType = (type) => type === 'email';
 <template>
   <ContactItem v-for="contact in contactMethods" :id="contact.id">
     <template #icon>
-      <font-awesome-icon class="fai" :icon="[contact.iconType, contact.icon]" size="2x" />
+      <font-awesome-icon
+        class="fai"
+        :icon="[contact.iconType, contact.icon]"
+        :size="IconSizes.FONTAWESOME"
+      />
     </template>
-    <template #name>
+    <template #contact>
       <a
         :user="contact.user"
         class="hover-underline-animation"
