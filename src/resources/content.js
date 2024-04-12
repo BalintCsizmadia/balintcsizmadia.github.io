@@ -9,7 +9,6 @@ export const stackItems = [
     heading: 'Languages',
     details: [
       {
-        id: 1,
         items: [
           { name: 'JavaScript', icon: 'js', iconSource: 'fontawesome' },
           { name: 'TypeScript', icon: 'typescript', iconSource: 'simpleicons' },
@@ -26,7 +25,6 @@ export const stackItems = [
     heading: 'Backend',
     details: [
       {
-        id: 2,
         items: [
           { name: 'Node.js', icon: 'node-js', iconSource: 'fontawesome' },
           { name: 'Spring Boot', icon: 'java', iconSource: 'fontawesome' }
@@ -42,7 +40,6 @@ export const stackItems = [
     heading: 'Frontend',
     details: [
       {
-        id: 3,
         group: 'Basics',
         items: [
           { name: 'HTML', icon: 'html5', iconSource: 'fontawesome' },
@@ -50,7 +47,6 @@ export const stackItems = [
         ]
       },
       {
-        id: 4,
         group: 'Frameworks',
         items: [
           { name: 'Vue', icon: 'vuejs', iconSource: 'fontawesome' },
@@ -69,7 +65,6 @@ export const stackItems = [
     heading: 'Database',
     details: [
       {
-        id: 5,
         items: [
           { name: 'PostgreSQL', icon: 'postgres', iconSource: 'simpleicons' },
           { name: 'MySQL', icon: 'mysql', iconSource: 'simpleicons' }
@@ -105,43 +100,101 @@ export const stackItems = [
   }
 ];
 
-export const stackItems_alt = [
+export const stackItemsAlt = [
   {
+    id: 1,
     heading: 'Languages',
-    details: [{ items: ['JavaScript', 'TypeScript', 'Java'] }],
+    details: [
+      {
+        items: [
+          { name: 'JavaScript', icon: 'js', iconSource: 'fontawesome' },
+          { name: 'TypeScript', icon: 'typescript', iconSource: 'simpleicons' },
+          { name: 'Java', icon: 'java', iconSource: 'fontawesome' }
+        ]
+      }
+    ],
     icon: 'code',
     iconType: 'fa'
   },
   {
+    id: 2,
     heading: 'Web technologies',
     details: [
-      { group: 'Basics', items: ['HTML', 'CSS'] },
-      { group: 'Frontend', items: ['Vue', 'React', 'Angular'] },
-      { group: 'Backend', items: ['Node.js', 'Spring Boot'] }
+      {
+        group: 'Basics',
+        items: [
+          { name: 'HTML', icon: 'html5', iconSource: 'fontawesome' },
+          { name: 'CSS', icon: 'css3-alt', iconSource: 'fontawesome' }
+        ]
+      },
+      {
+        group: 'Frontend',
+        items: [
+          { name: 'Vue', icon: 'vuejs', iconSource: 'fontawesome' },
+          { name: 'React', icon: 'react', iconSource: 'fontawesome' },
+          { name: 'Angular', icon: 'angular', iconSource: 'fontawesome' }
+        ]
+      },
+      {
+        group: 'Backend',
+        items: [
+          { name: 'Node.js', icon: 'node-js', iconSource: 'fontawesome' },
+          { name: 'Spring Boot', icon: 'java', iconSource: 'fontawesome' }
+        ]
+      }
     ],
-    icon: 'server',
+    icon: 'laptop-code',
     iconType: 'fa'
   },
   {
+    id: 3,
     heading: 'Databases',
-    details: [{ items: ['PostgreSQL', 'MySQL'] }],
+    details: [
+      {
+        items: [
+          { name: 'PostgreSQL', icon: 'postgres', iconSource: 'simpleicons' },
+          { name: 'MySQL', icon: 'mysql', iconSource: 'simpleicons' }
+        ]
+      }
+    ],
     icon: 'database',
     iconType: 'fa'
   },
   {
     heading: 'Tools',
-    details: [{ items: ['Docker', 'Git', 'Terraform'] }],
-    icon: 'toolbox',
-    iconType: 'fa'
-  },
-  {
-    heading: 'DevOps',
     details: [
-      { group: 'Infrastructure', items: ['Google Cloud Platform'] },
-      { group: 'CI/CD', items: ['Jenkins', 'GitHub Actions', 'Cloud Build'] }
+      {
+        items: [
+          { name: 'Docker', icon: 'docker', iconSource: 'fontawesome' },
+          { name: 'Git', icon: 'git', iconSource: 'fontawesome' },
+          { name: 'Terraform', icon: 'terraform', iconSource: 'simpleicons' }
+        ]
+      }
     ],
     icon: 'gears',
-    iconType: 'fa'
+    iconType: 'fa',
+    displayAlterIcon: false
+  },
+  {
+    id: 4,
+    heading: 'DevOps',
+    details: [
+      {
+        group: 'Infrastructure',
+        items: [{ name: 'Google Cloud Platform', icon: 'google', iconSource: 'fontawesome' }]
+      },
+      {
+        group: 'CI/CD',
+        items: [
+          { name: 'Jenkins', icon: 'jenkins', iconSource: 'fontawesome' },
+          { name: 'GitHub Actions', icon: 'github', iconSource: 'fontawesome' },
+          { name: 'Cloud Build', icon: 'cloud', iconSource: 'fontawesome', iconType: 'fa' }
+        ]
+      }
+    ],
+    icon: 'infinity',
+    iconType: 'fa',
+    displayAlterIcon: false
   }
 ];
 

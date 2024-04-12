@@ -9,7 +9,10 @@ import {
   faDatabase,
   faEnvelope,
   faGears,
-  faRoadBridge
+  faRoadBridge,
+  faLaptopCode,
+  faInfinity,
+  faCloud
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faGithub,
@@ -24,7 +27,8 @@ import {
   faReact,
   faGoogle,
   faGit,
-  faDocker
+  faDocker,
+  faJenkins
 } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
@@ -52,7 +56,11 @@ library.add(
   faGoogle,
   faGit,
   faDocker,
-  faRoadBridge
+  faRoadBridge,
+  faLaptopCode,
+  faInfinity,
+  faJenkins,
+  faCloud
 );
 
 const app = createApp(App).component('font-awesome-icon', FontAwesomeIcon);

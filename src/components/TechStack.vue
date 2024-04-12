@@ -1,11 +1,14 @@
 <script setup>
 import TechStackItem from './TechStackItem.vue';
-import { stackItems } from '../resources/content';
+import { stackItems, stackItemsAlt } from '../resources/content';
 import { reactive, ref } from 'vue';
 import { PostgresqlIcon, MysqlIcon, TypescriptIcon, TerraformIcon } from 'vue3-simple-icons';
 import { IconTypes, IconSources, IconSizes } from '../resources/constants.js';
 
-let myStackItems = reactive(stackItems);
+const loadStackItemMapRandomly = (stackItemMapList) =>
+  stackItemMapList[Math.floor(Math.random() * stackItemMapList.length)];
+
+let myStackItems = reactive(loadStackItemMapRandomly([stackItems, stackItemsAlt]));
 let alterIcon = ref('');
 let alterIconType = ref('');
 let alterIconSource = ref('');
