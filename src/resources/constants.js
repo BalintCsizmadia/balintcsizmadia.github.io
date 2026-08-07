@@ -15,5 +15,5 @@ export const IconSources = {
 
 export const IconSizes = {
   FONTAWESOME: '2x',
-  SIMPLEICONS: '1.75x'
+  SIMPLEICONS: 'lg'
 };

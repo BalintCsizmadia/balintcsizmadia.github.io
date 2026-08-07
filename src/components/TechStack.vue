@@ -1,91 +1,56 @@
 <script setup>
-import TechStackItem from './TechStackItem.vue';
 import { stackItems, stackItemsAlt } from '../resources/content';
-import { reactive, ref } from 'vue';
-import { PostgresqlIcon, MysqlIcon, TypescriptIcon, TerraformIcon } from 'vue3-simple-icons';
-import { IconTypes, IconSources, IconSizes } from '../resources/constants.js';
+import { reactive } from 'vue';
+import { IconSizes } from '../resources/constants.js';
 
 const loadStackItemMapRandomly = (stackItemMapList) =>
   stackItemMapList[Math.floor(Math.random() * stackItemMapList.length)];
 
-let myStackItems = reactive(loadStackItemMapRandomly([stackItems, stackItemsAlt]));
-let alterIcon = ref('');
-let alterIconType = ref('');
-let alterIconSource = ref('');
-
-const dynamicComponent = ref(null);
-const dynamicProps = reactive({
-  size: IconSizes.SIMPLEICONS,
-  class: 'simple-icon'
-});
-
-const loadDynamicComponent = (componentName) => {
-  const componentMapping = {
-    mysql: MysqlIcon,
-    postgres: PostgresqlIcon,
-    terraform: TerraformIcon,
-    typescript: TypescriptIcon
-  };
-  dynamicComponent.value = componentMapping[componentName];
-};
+const myStackItems = reactive(loadStackItemMapRandomly([stackItems, stackItemsAlt]));
 
 const displayItem = (item, lastItem) => (item === lastItem ? item.name : `${item.name}, `);
-
-const changeIcon = (stackItemObj, item) => {
-  stackItemObj.displayAlterIcon = true;
-  alterIcon.value = item.icon;
-  alterIconType.value = item.iconType || IconTypes.FAB;
-  alterIconSource.value = item.iconSource;
-  if (item.iconSource === IconSources.SIMPLEICONS) {
-    loadDynamicComponent(item.icon);
-  }
-};
-
-const changeIconBack = (stackItemObj) => {
-  stackItemObj.displayAlterIcon = false;
-  alterIcon.value = '';
-  alterIconType.value = '';
-  alterIconSource.value = '';
-};
 </script>
 
 <template>
-  <TechStackItem v-for="stackItem in myStackItems" :id="stackItem.id">
-    <template #icon>
-      <component
-        v-if="alterIconSource === IconSources.SIMPLEICONS && stackItem.displayAlterIcon"
-        :is="{ ...dynamicComponent }"
-        v-bind="dynamicProps"
-      />
-      <font-awesome-icon
-        v-else
-        class="fai"
-        :icon="[
-          stackItem.displayAlterIcon ? alterIconType : stackItem.iconType || IconTypes.FA,
-          stackItem.displayAlterIcon ? alterIcon : stackItem.icon
-        ]"
-        :size="IconSizes.FONTAWESOME"
-      />
-    </template>
-    <template #heading>{{ stackItem.heading }}</template>
-    <p v-for="details in stackItem.details" :id="details.id">
-      <span v-if="details.group" class="group" :aria-label="details.group">{{
-        `${details.group}: `
-      }}</span>
-      <span
-        v-for="item in details.items"
-        :id="item.name"
-        :aria-label="item.name"
-        @mouseenter="changeIcon(stackItem, item)"
-        @mouseleave="changeIconBack(stackItem)"
-        >{{ displayItem(item, details.items[details.items.length - 1]) }}</span
-      >
-    </p>
-  </TechStackItem>
-</template>
+  <section id="stack" class="reveal scroll-mt-24 py-16 sm:py-20">
+    <div class="mb-12 h-px w-full bg-gradient-to-r from-transparent via-line to-transparent"></div>
+    <div class="grid gap-8 sm:grid-cols-[10rem_1fr] sm:gap-12">
+      <h2 class="font-serif text-sm font-medium uppercase tracking-[0.2em] text-muted">
+        Stack
+      </h2>
 
-<style scoped>
-.group {
-  font-weight: 600;
-}
-</style>
+      <div class="grid gap-x-12 gap-y-10 sm:grid-cols-2">
+        <div v-for="stackItem in myStackItems" :key="stackItem.heading">
+          <h3 class="flex items-center gap-3 font-serif text-xl font-medium text-ink">
+            <span class="flex w-5 justify-center text-muted">
+              <font-awesome-icon
+                :icon="[stackItem.iconType || 'fa', stackItem.icon]"
+                :size="IconSizes.SIMPLEICONS"
+                fixed-width
+              />
+            </span>
+            {{ stackItem.heading }}
+          </h3>
+
+          <div class="mt-1 pl-[2rem]">
+            <p
+              v-for="details in stackItem.details"
+              :key="details.group || 'items'"
+              class="mt-1 text-muted"
+            >
+              <span v-if="details.group" class="font-medium text-ink"
+                >{{ `${details.group}: ` }}</span
+              >
+              <span
+                v-for="item in details.items"
+                :key="item.name"
+                class="transition-colors hover:text-accent"
+                >{{ displayItem(item, details.items[details.items.length - 1]) }}</span
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>

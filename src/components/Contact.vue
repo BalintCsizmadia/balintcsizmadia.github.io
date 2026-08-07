@@ -1,5 +1,4 @@
 <script setup>
-import ContactItem from './ContactItem.vue';
 import { contactMethods } from '../resources/content';
 import { AnchorHTMLAttributes, IconSizes } from '../resources/constants';
 
@@ -16,52 +15,44 @@ const isEmailType = (type) => type === 'email';
 </script>
 
 <template>
-  <ContactItem v-for="contact in contactMethods" :id="contact.id">
-    <template #icon>
-      <font-awesome-icon
-        class="fai"
-        :icon="[contact.iconType, contact.icon]"
-        :size="IconSizes.FONTAWESOME"
-      />
-    </template>
-    <template #contact>
-      <a
-        :user="contact.user"
-        class="hover-underline-animation"
-        :href="setAnchor(contact, AnchorHTMLAttributes.HREF)"
-        :target="setAnchor(contact, AnchorHTMLAttributes.TARGET)"
-        >{{ contact.name }}</a
-      >
-    </template>
-  </ContactItem>
+  <section id="contact" class="reveal scroll-mt-20 border-t border-line/70 py-20 sm:py-24">
+    <div class="grid gap-8 sm:grid-cols-[10rem_1fr] sm:gap-12">
+      <h2 class="font-serif text-sm font-medium uppercase tracking-[0.2em] text-muted">
+        Contact
+      </h2>
+
+      <ul class="flex flex-col divide-y divide-line/70 border-y border-line/70">
+        <li v-for="contact in contactMethods" :key="contact.id">
+          <a
+            :href="setAnchor(contact, AnchorHTMLAttributes.HREF)"
+            :target="setAnchor(contact, AnchorHTMLAttributes.TARGET)"
+            rel="noopener"
+            class="group flex items-center justify-between gap-4 py-5 no-underline"
+          >
+            <span class="flex items-center gap-4">
+              <span
+                class="w-6 text-center text-muted transition-colors group-hover:text-accent"
+              >
+                <font-awesome-icon
+                  :icon="[contact.iconType, contact.icon]"
+                  :size="IconSizes.SIMPLEICONS"
+                />
+              </span>
+              <span>
+                <span class="block font-serif text-xl font-medium text-ink">{{
+                  contact.name
+                }}</span>
+                <span class="block text-sm text-muted">{{ contact.user }}</span>
+              </span>
+            </span>
+            <span
+              class="text-muted transition-transform group-hover:translate-x-1 group-hover:text-accent"
+              aria-hidden="true"
+              >→</span
+            >
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
 </template>
-
-<style scoped>
-a:hover {
-  background-color: transparent;
-}
-.hover-underline-animation {
-  display: inline-block;
-  position: relative;
-}
-
-.hover-underline-animation::after {
-  content: attr(user);
-  color: #34485e;
-  position: absolute;
-  width: 100%;
-  transform: scaleX(0);
-  height: 2px;
-  bottom: 0;
-  left: 0;
-  background-color: #0087ca;
-  transform-origin: bottom right;
-  transition: transform 0.25s ease-out;
-  width: max-content;
-}
-
-.hover-underline-animation:hover::after {
-  transform: scaleX(1);
-  transform-origin: bottom left;
-}
-</style>
