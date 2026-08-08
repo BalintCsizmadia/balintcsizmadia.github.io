@@ -64,42 +64,26 @@ body::after {
   will-change: transform;
 }
 
-/* Larger cloud — upper right, warms and follows scroll. */
+/* Subtle top-to-bottom gradient, no animation, no blur. */
 body::before {
-  top: -10vh;
-  right: -5vw;
-  height: 70vh;
-  width: 70vh;
-  background: radial-gradient(
-    circle at center,
-    rgb(var(--color-accent) / 0.22),
-    transparent 65%
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  border-radius: 0;
+  filter: none;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgb(var(--color-ink) / 0.06)
   );
-  transform: translate3d(
-    calc(var(--scroll, 0) * -6vw),
-    calc(var(--scroll, 0) * 10vh),
-    0
-  );
-  animation: cloud-a 26s ease-in-out infinite alternate;
+  animation: none;
 }
 
-/* Smaller, softer cloud — mid-left, drifts the other way. */
 body::after {
-  top: 30vh;
-  left: -10vw;
-  height: 45vh;
-  width: 45vh;
-  background: radial-gradient(
-    circle at center,
-    rgb(var(--color-accent-soft) / 0.5),
-    transparent 60%
-  );
-  transform: translate3d(
-    calc(var(--scroll, 0) * 5vw),
-    calc(var(--scroll, 0) * -8vh),
-    0
-  );
-  animation: cloud-b 32s ease-in-out infinite alternate;
+  display: none;
 }
 
 /* Continuous ambient drift, layered on top of the scroll transform via the

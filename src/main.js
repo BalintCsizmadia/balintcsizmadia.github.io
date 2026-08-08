@@ -11,7 +11,8 @@ import {
   faRoadBridge,
   faLaptopCode,
   faInfinity,
-  faCloud
+  faCloud,
+  faWandMagicSparkles
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faGithub,
@@ -59,7 +60,8 @@ library.add(
   faLaptopCode,
   faInfinity,
   faJenkins,
-  faCloud
+  faCloud,
+  faWandMagicSparkles
 );
 
 const app = createApp(App).component('font-awesome-icon', FontAwesomeIcon);

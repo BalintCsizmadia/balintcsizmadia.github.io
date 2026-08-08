@@ -1,6 +1,6 @@
 <script setup>
 import Hero from './components/Hero.vue';
-import TechStack from './components/TechStack.vue';
+import Skills from './components/Skills.vue';
 import Contact from './components/Contact.vue';
 import { person } from './resources/content';
 import { useReveal } from './composables/useReveal';
@@ -12,7 +12,7 @@ useReveal();
 const scene = useScrollScene(320);
 
 const nav = [
-  { label: 'Stack', href: '#stack' },
+  { label: 'Skills', href: '#skills' },
   { label: 'Contact', href: '#contact' }
 ];
 
@@ -68,13 +68,21 @@ const scrollToTop = (e) => {
            then pins at the header line and STAYS docked for the rest of the scroll. -->
       <a
         href="#top"
-        class="dock-name pointer-events-none sticky z-30 block w-max font-serif font-medium leading-none tracking-tightest text-ink no-underline"
+        :class="['dock-name group sticky z-30 flex items-center gap-1.5 w-max font-serif font-medium leading-none tracking-tightest text-ink no-underline', scene.t >= 1 ? 'pointer-events-auto cursor-pointer' : 'pointer-events-none']"
         :style="nameStyle"
-        >{{ person.name }}</a
+        @click="scene.t >= 1 ? scrollToTop($event) : null"
+        >{{ person.name }}<svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-3.5 w-3.5 text-muted transition-opacity"
+          :class="scene.t >= 1 ? 'opacity-0 group-hover:opacity-100' : 'opacity-0'"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        ><path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd" /></svg
+        ></a
       >
 
       <Hero />
-      <TechStack />
+      <Skills />
       <Contact />
     </main>
 
