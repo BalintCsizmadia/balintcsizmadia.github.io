@@ -10,5 +10,9 @@ module.exports = {
   ],
   parserOptions: {
     ecmaVersion: 'latest'
+  },
+  rules: {
+    // Single-word section component names (Hero, About, Contact) are intentional here.
+    'vue/multi-word-component-names': 'off'
   }
 };

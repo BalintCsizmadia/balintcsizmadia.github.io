@@ -4,7 +4,38 @@
     <meta charset="UTF-8">
     <link rel="icon" href="/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>balint csizmadia</title>
+    <meta
+      name="description"
+      content="Balint Csizmadia - Software Developer."
+    />
+    <meta name="theme-color" content="#faf9f5" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#171614" media="(prefers-color-scheme: dark)" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=block"
+    />
+    <title>Balint Csizmadia | Software Developer</title>
+    <meta property="og:title" content="Balint Csizmadia | Software Developer" />
+    <meta property="og:description" content="Balint Csizmadia - Software Developer." />
+    <meta property="og:type" content="website" />
+    <script>
+      // Reveal the page once web fonts are ready, so a hard refresh fades in
+      // gracefully instead of flashing a font swap. Fallback timeout ensures
+      // content always shows even if the font request stalls.
+      (function () {
+        var reveal = function () {
+          document.documentElement.classList.add('fonts-loaded');
+        };
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(reveal);
+          setTimeout(reveal, 1500);
+        } else {
+          reveal();
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="app"></div>

@@ -1,95 +1,113 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router';
-import Person from './components/Person.vue';
+import Hero from './components/Hero.vue';
+import Skills from './components/Skills.vue';
+import Contact from './components/Contact.vue';
 import { person } from './resources/content';
+import { useReveal } from './composables/useReveal';
+import { useScrollScene } from './composables/useScrollScene';
+import { computed } from 'vue';
+import logo from './assets/logo.png';
+
+useReveal();
+const scene = useScrollScene(320);
+
+const nav = [
+  { label: 'Skills', href: '#skills' },
+  { label: 'Contact', href: '#contact' }
+];
+
+// The name is a sticky element spanning the whole page, so once it reaches the
+// header line it STAYS pinned there for the rest of the scroll. While at the top
+// it's scaled up (into the hero); as you scroll it shrinks to its docked size and
+// slides right to sit beside the logo. Transform-only = compositor-smooth.
+// Scale is smaller on mobile so the big name never overflows the viewport.
+const nameStyle = computed(() => {
+  const t = scene.reduced ? 1 : scene.t;
+  const heroScale = scene.isMobile ? 1.9 : 3.1;
+  const scale = heroScale - (heroScale - 1) * t;
+  // Slide right into place beside the logo as it docks (0 → logo width + gap).
+  const dockX = (scene.isMobile ? 2.5 : 2.75) * t;
+  return {
+    transform: `translateX(${dockX}rem) scale(${scale})`,
+    transformOrigin: 'left center'
+  };
+});
+
+// Scroll to the true page top. Using window.scrollTo (not an #anchor) avoids
+// scroll-padding-top offsetting the landing point 5rem below the top.
+const scrollToTop = (e) => {
+  e.preventDefault();
+  window.scrollTo({ top: 0, behavior: scene.reduced ? 'auto' : 'smooth' });
+};
 </script>
 
 <template>
-  <header>
-    <img alt="logo" class="logo" src="@/assets/logo.png" width="125" height="125" />
+  <div class="min-h-screen">
+    <!-- Header: logo left + nav right. The name docks onto this line, beside the logo,
+         via the sticky element below. -->
+    <header class="sticky top-0 z-20 border-b border-line/70 bg-paper/70 backdrop-blur-md">
+      <div class="mx-auto flex max-w-content items-center justify-between gap-4 px-6 py-4 sm:px-8">
+        <a href="#top" class="flex items-center no-underline" @click="scrollToTop">
+          <img :src="logo" alt="Logo" class="h-7 w-7 sm:h-8 sm:w-8" />
+        </a>
+        <nav class="flex items-center gap-5 text-sm sm:gap-6">
+          <a
+            v-for="link in nav"
+            :key="link.href"
+            :href="link.href"
+            class="text-muted no-underline transition-colors hover:text-ink"
+            >{{ link.label }}</a
+          >
+        </nav>
+      </div>
+    </header>
 
-    <div class="wrapper">
-      <Person :name="person.name" :title="person.title" />
+    <main id="top" class="mx-auto max-w-content px-6 sm:px-8">
+      <!-- Sticky, page-spanning name. Direct child of <main> so its containing block
+           is the whole page: it starts large in the hero (pushed down by margin-top),
+           then pins at the header line and STAYS docked for the rest of the scroll. -->
+      <a
+        href="#top"
+        :class="['dock-name group sticky z-30 flex items-center gap-1.5 w-max font-serif font-medium leading-none tracking-tightest text-ink no-underline', scene.t >= 1 ? 'pointer-events-auto cursor-pointer' : 'pointer-events-none']"
+        :style="nameStyle"
+        @click="scene.t >= 1 ? scrollToTop($event) : null"
+        >{{ person.name }}<svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-3.5 w-3.5 text-muted transition-opacity"
+          :class="scene.t >= 1 ? 'opacity-0 group-hover:opacity-100' : 'opacity-0'"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        ><path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd" /></svg
+        ></a
+      >
 
-      <nav>
-        <RouterLink to="/">Stack</RouterLink>
-        <RouterLink to="/contact">Contact</RouterLink>
-      </nav>
-    </div>
-  </header>
+      <Hero />
+      <Skills />
+      <Contact />
+    </main>
 
-  <RouterView />
+    <footer class="border-t border-line/70">
+      <div class="mx-auto max-w-content px-6 py-8 text-sm text-muted sm:px-8">
+        © {{ new Date().getFullYear() }} {{ person.name }}
+      </div>
+    </footer>
+  </div>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+/* The name's layout box is its docked (1x) size; the hero size comes from the
+   scale transform (origin left center). As a direct child of <main>, its sticky
+   containing block is the whole page, so it pins at `top` and stays docked.
+   margin-top pushes its resting (scroll=0) position down into the hero. */
+.dock-name {
+  top: 1.15rem;
+  margin-top: 5.5rem;
+  font-size: 1.125rem; /* text-lg docked size */
 }
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-/* Mobile style
-@media (max-width: 414px) {
-.logo {
-  float: left;
-  width: 55px;
-  height: 55px;
-}
-/* } */
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
+@media (min-width: 640px) {
+  .dock-name {
+    top: 1.35rem;
+    margin-top: 7rem;
   }
 }
 </style>

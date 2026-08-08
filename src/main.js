@@ -1,6 +1,5 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import router from './router';
 import { library, config } from '@fortawesome/fontawesome-svg-core';
 import {
   faServer,
@@ -12,7 +11,8 @@ import {
   faRoadBridge,
   faLaptopCode,
   faInfinity,
-  faCloud
+  faCloud,
+  faWandMagicSparkles
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faGithub,
@@ -60,11 +60,10 @@ library.add(
   faLaptopCode,
   faInfinity,
   faJenkins,
-  faCloud
+  faCloud,
+  faWandMagicSparkles
 );
 
 const app = createApp(App).component('font-awesome-icon', FontAwesomeIcon);
-
-app.use(router);
 
 app.mount('#app');

@@ -1,39 +1,145 @@
-@import './base.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+/* Editorial palette — warm neutrals + one muted accent.
+   Values are space-separated RGB channels so Tailwind's <alpha-value> works. */
+:root {
+  --color-paper: 250 249 245; /* warm off-white */
+  --color-surface: 255 255 255;
+  --color-ink: 38 37 34; /* warm near-black */
+  --color-muted: 111 108 100; /* warm grey */
+  --color-line: 231 227 217; /* hairline */
+  --color-accent: 47 133 90; /* muted forest green */
+  --color-accent-soft: 224 238 230;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-paper: 23 22 20; /* warm charcoal */
+    --color-surface: 31 30 27;
+    --color-ink: 240 237 230; /* warm paper white */
+    --color-muted: 160 155 145;
+    --color-line: 56 53 48;
+    --color-accent: 106 189 146; /* lifted green for dark bg */
+    --color-accent-soft: 34 48 41;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem; /* clears the sticky nav on anchor jumps */
+}
+
+body {
+  @apply bg-paper text-ink font-sans antialiased;
+  min-height: 100vh;
+  text-rendering: optimizeLegibility;
+}
+
+/* Graceful reveal: hold the app hidden until web fonts are ready (html gets
+   .fonts-loaded from the inline script in index.html), then fade in. This turns
+   a hard-refresh font swap into a smooth entrance instead of a flash. */
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
+  opacity: 0;
+}
+.fonts-loaded #app {
+  opacity: 1;
+  transition: opacity 0.5s ease;
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
+/* Ambient background: two soft accent clouds, fixed to the viewport, that
+   slowly drift on their own AND shift with scroll (--scroll set by
+   useScrollScene). Living behind the whole page (fixed, full-viewport) means
+   there's no section box to clip them — no hard edge, no rectangle. Animating
+   only the layer's transform keeps it compositor-friendly. */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 9999px;
+  filter: blur(80px);
+  will-change: transform;
 }
 
-.fai:hover {
-  color: #00bd7e;
+/* Subtle top-to-bottom gradient, no animation, no blur. */
+body::before {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  border-radius: 0;
+  filter: none;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgb(var(--color-ink) / 0.06)
+  );
+  animation: none;
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
+body::after {
+  display: none;
+}
+
+/* Continuous ambient drift, layered on top of the scroll transform via the
+   animation. Small travel so it reads as "alive", not busy. */
+@keyframes cloud-a {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(-4vw, 5vh, 0) scale(1.12);
   }
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
+@keyframes cloud-b {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
   }
+  to {
+    transform: translate3d(5vw, -4vh, 0) scale(0.9);
+  }
+}
 
+/* simple-icons render as inline SVG; inherit current text color. */
+.simple-icon {
+  fill: currentColor;
+}
+
+/* Subtle section reveal on scroll (added by useReveal). */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-    /* padding: 0 0 0 4rem; */
+    opacity: 1;
+  }
+  .fonts-loaded #app {
+    transition: none;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  body::before,
+  body::after {
+    animation: none;
   }
 }
